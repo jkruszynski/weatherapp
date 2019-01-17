@@ -1,5 +1,6 @@
 import requests
 from pprint import pprint
+from datetime import datetime
 
 weather_dict = {}
 
@@ -14,17 +15,27 @@ def get_weather():
     forecast_dict = forecast_request.json()
     weather_list = []
     for forecast in forecast_dict['properties']['periods']:
-        #weather_list.append(forecast['name'] + ': ' + forecast['shortForecast'] + ', ' + str(forecast['temperature']) +
-         #                   forecast['temperatureUnit'] + '\n')
         weather_list.append(forecast['name'] + ': ' + forecast['detailedForecast'])
 
     weather_dict['weather.com'] = weather_list
-    #pprint(forecast_dict)
+    # pprint(forecast_dict)
 
-    #openweather
-    open_api = requests.get('http://api.openweathermap.org/data/2.5/forecast?zip=63104,us&APPID=656a6a0c523b77b982cd4867f6617c15&units=imperial')
+    # dark skies
+    dark_skies_r = requests.get('https://api.darksky.net/forecast/ffa912ad1451869fa8e5b73869e4e31b/38.6247,-90.1848')
 
-    pprint(open_api.json())
+    dark_skies = dark_skies_r.json()
+
+    # pprint(dark_skies['daily'])
+    weather_list = []
+    for f in dark_skies['daily']['data']:
+        d = datetime.utcfromtimestamp(f['time']).strftime('%A')
+        weather_str = d + ' -- '
+        weather_str += 'High: ' + str(f['apparentTemperatureHigh']) + ', Low: ' + str(f['apparentTemperatureLow']) + ', '
+        weather_str += f['summary']
+        if 'precipType' in f.keys():
+            weather_str += ' with a ' + str(f['precipProbability']) + ' probability of ' + f['precipType']
+        weather_list.append(weather_str)
+    weather_dict['Dark Skies'] = weather_list
 
     return weather_dict
 

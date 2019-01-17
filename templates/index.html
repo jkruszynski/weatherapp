@@ -6,8 +6,12 @@
 </head>
 <body>
 <h1>Weather.com</h1>
-
 {% for p in data['weather.com'] %}
+{{ p }}<br>
+{% endfor %}
+<br>
+<h1>Dark Skies</h1>
+{% for p in data['Dark Skies'] %}
 {{ p }}<br>
 {% endfor %}
 </body>
