@@ -1,6 +1,7 @@
 import requests
 from pprint import pprint
 from datetime import datetime
+from flask import request
 
 weather_dict = {}
 
@@ -40,3 +41,7 @@ def get_weather():
     return weather_dict
 
 get_weather()
+
+def get_ip():
+
+    return request.remote_addr
