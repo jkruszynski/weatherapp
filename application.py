@@ -9,9 +9,9 @@ application = Flask(__name__)
 
 @application.route('/')
 def index():
-    w = get_weather()
     ip = get_ip()
-    return render_template('index.html', data=w, addr=ip)
+    w = get_weather(ip['latitude'], ip['longitude'])
+    return render_template('index.html', data=w, addr=ip['city'])
 
 if __name__ == '__main__':
     application.run(debug=True)

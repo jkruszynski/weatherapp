@@ -4,11 +4,11 @@ from flask import request
 
 weather_dict = {}
 
-def get_weather():
+def get_weather(lat, long):
 
 
     # weather.com
-    weather_api = requests.get('https://api.weather.gov/points/'+'38.6247,-90.1848')
+    weather_api = requests.get('https://api.weather.gov/points/'+str(lat)+','+str(long))
     weather_api_dict = weather_api.json()
     forecast_url = weather_api_dict['properties']['forecast']
     forecast_request = requests.get(forecast_url)
@@ -21,7 +21,7 @@ def get_weather():
     # pprint(forecast_dict)
 
     # dark skies
-    dark_skies_r = requests.get('https://api.darksky.net/forecast/ffa912ad1451869fa8e5b73869e4e31b/38.6247,-90.1848')
+    dark_skies_r = requests.get('https://api.darksky.net/forecast/ffa912ad1451869fa8e5b73869e4e31b/'+str(lat)+','+str(long))
 
     dark_skies = dark_skies_r.json()
 
@@ -49,5 +49,5 @@ def get_ip():
     req = requests.get('http://api.ipstack.com/'+str(ip)+'?access_key=c3bc8b0532a448ed5b30b561715d428c')
     r = req.json()
     print(r)
-    return r['city']
+    return r
 
