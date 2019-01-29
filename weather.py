@@ -2,6 +2,8 @@ import requests
 from pprint import pprint
 from datetime import datetime
 from flask import request
+from geoip import geolite2
+import pygeoip
 
 weather_dict = {}
 
@@ -40,8 +42,15 @@ def get_weather():
 
     return weather_dict
 
-get_weather()
 
 def get_ip():
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        ip = request.environ['REMOTE_ADDR']
+    else:
+        ip = request.environ['HTTP_X_FORWARDED_FOR']
 
-    return request.remote_addr
+    req = requests.get('http://api.ipstack.com/'+str(ip)+'?access_key=c3bc8b0532a448ed5b30b561715d428c')
+    r = req.json()
+    print(r)
+    return r['city']
+
