@@ -1,9 +1,6 @@
 import requests
-from pprint import pprint
 from datetime import datetime
 from flask import request
-from geoip import geolite2
-import pygeoip
 
 weather_dict = {}
 
