@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 from flask import request
-from uszipcode import SearchEngine
+import uszipcode
 
 
 weather_dict = {}
@@ -61,7 +61,7 @@ def get_ip():
 
 def zip_to_coords(user):
     print('zip_to_coords')
-    search = SearchEngine(simple_zipcode=True)  # set simple_zipcode=False to use rich info database
+    search = uszipcode.SearchEngine(simple_zipcode=True)  # set simple_zipcode=False to use rich info database
     zipcode = search.by_zipcode(user)
     coords = (zipcode.lat, zipcode.lng)
     city = zipcode.major_city
