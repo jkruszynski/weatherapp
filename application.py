@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, redirect
+from flask import render_template
 from weather import get_weather
 from weather import get_ip
 from weather import zip_to_coords
