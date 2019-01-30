@@ -6,6 +6,7 @@ from uszipcode import SearchEngine
 
 weather_dict = {}
 
+
 def get_weather(lat, long):
     print('get_weather')
     print(lat, long)
