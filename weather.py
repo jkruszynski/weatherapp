@@ -1,12 +1,14 @@
 import requests
 from datetime import datetime
 from flask import request
+from uszipcode import SearchEngine
+
 
 weather_dict = {}
 
 def get_weather(lat, long):
-
-
+    print('get_weather')
+    print(lat, long)
     # weather.com
     weather_api = requests.get('https://api.weather.gov/points/'+str(lat)+','+str(long))
     weather_api_dict = weather_api.json()
@@ -41,6 +43,7 @@ def get_weather(lat, long):
 
 
 def get_ip():
+    print('get_ip')
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
         ip = request.environ['REMOTE_ADDR']
     else:
@@ -48,6 +51,19 @@ def get_ip():
 
     req = requests.get('http://api.ipstack.com/'+str(ip)+'?access_key=c3bc8b0532a448ed5b30b561715d428c')
     r = req.json()
-    print(r)
+    if r['latitude'] is None:
+        req = requests.get('http://api.ipstack.com/'+'192.104.183.109'+'?access_key=c3bc8b0532a448ed5b30b561715d428c')
+        r = req.json()
+
     return r
+
+
+def zip_to_coords(user):
+    print('zip_to_coords')
+    search = SearchEngine(simple_zipcode=True)  # set simple_zipcode=False to use rich info database
+    zipcode = search.by_zipcode(user)
+    coords = (zipcode.lat, zipcode.lng)
+    city = zipcode.major_city
+    return coords, city
+
 

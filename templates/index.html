@@ -6,6 +6,19 @@
 </head>
 <body>
 <h3>{{ addr }}</h3>
+
+{% block content %}
+    <h1>Search for weather by zip code</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.zipcode.label }}<br>
+            {{ form.zipcode(size=5) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
 <h1>Weather.com</h1>
 {% for p in data['weather.com'] %}
 {{ p }}<br>
