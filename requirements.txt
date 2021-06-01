@@ -33,7 +33,7 @@ six==1.11.0
 source==1.2.0
 SQLAlchemy==1.2.17
 termcolor==1.1.0
-urllib3==1.24.1
+urllib3==1.26.5
 uszipcode==0.2.2
 virtualenv==16.2.0
 Werkzeug==0.14.1
