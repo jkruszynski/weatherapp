@@ -16,7 +16,7 @@ itsdangerous==1.1.0
 Jinja2==2.10
 jmespath==0.9.3
 MarkupSafe==1.1.0
-numpy==1.14.5
+numpy==1.22.0
 pandas==0.23.3
 pathlib-mate==0.0.14
 pathspec==0.5.5
